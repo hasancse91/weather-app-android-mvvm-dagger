@@ -40,6 +40,4 @@ The BASE URL and APP ID will be fetched from `build.gradle` file and will be sto
 ### Run the project
 Sync the `Gradle` and run the project. Install APK on your emulator or real device. Turn on the internet of your testing device. For better understanding, please read the comments of every methods. Hope, these comments will help you to feel the `MVVM Architecture`.
 ### Disclaimer
-There are some other ways of implementation of `MVVM`. We find most of the MVVM tutorials are covered with `Rx` and `Dagger`. But it's not mandatory to use `Rx` or `Dagger` in MVVM. Even without using `LiveData` you can implement MVVM architecture. The main difference between MVP and MVVM is: `Presenter` is not `Life Cycle` aware. On the otherhand `ViewModel` is `Life Cycle` aware.
-
-For simplicity, I've ignored `RxJava` in this project. I will create another repository of `MVVM` with `Rx`.
+There are some other ways of implementation of `MVVM`. For simplicity, I've ignored `RxJava` in this project. I will create another repository of `MVVM` with `Rx`.
