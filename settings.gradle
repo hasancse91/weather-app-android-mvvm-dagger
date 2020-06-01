@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='Weather App MVVM'
+rootProject.name='Weather App MVVM Dagger'

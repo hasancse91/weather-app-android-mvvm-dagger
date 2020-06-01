@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Weather App MVVM</string>
+    <string name="app_name">Weather App MVVM Dagger</string>
     <string name="view_weather">View Weather</string>
     <string name="degree_celsius_symbol">°C</string>
     <string name="description_weather_condition_icon">weather condition icon</string>
