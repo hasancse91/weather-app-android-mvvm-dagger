@@ -1,6 +1,6 @@
-# Android MVVM Architecture Sample (ViewModel + LiveData + Kotlin + Retrofit) - Weather App
+# Android MVVM Architecture Sample (Kotlin + Retrofit + Dagger) - Weather App
 
-MVVM Architecture is one of the most popular and latest architecture to develop a maintanable and managable codebase. We are developing a sample `Weater Forecast` Android App with `MVVM Architecture` using `Kotlin` language and `Retrofit` network calling library. **For simplification, I didn't use `Dagger`, `Coroutine` or `Rx` in this project.**
+MVVM Architecture is one of the most popular and latest architecture to develop a maintanable and managable codebase. We are developing a sample `Weater Forecast` Android App with `MVVM Architecture` using `Kotlin` language and `Retrofit` network calling library. **For simplification, I didn't use `Coroutine` or `Rx` in this project.**
 
 <img src="https://github.com/hasancse91/weather-app-android-mvvm/blob/master/data/screenshot_1.png" width="250" height="444" />
 
@@ -42,4 +42,4 @@ Sync the `Gradle` and run the project. Install APK on your emulator or real devi
 ### Disclaimer
 There are some other ways of implementation of `MVVM`. We find most of the MVVM tutorials are covered with `Rx` and `Dagger`. But it's not mandatory to use `Rx` or `Dagger` in MVVM. Even without using `LiveData` you can implement MVVM architecture. The main difference between MVP and MVVM is: `Presenter` is not `Life Cycle` aware. On the otherhand `ViewModel` is `Life Cycle` aware.
 
-For simplicity, I've ignored reactive programming concept (Rx) and `dependency injection` in this project. I will create another repository of `MVVM` with dependency injection `Dagger 2` and another repository with `Rx`.
+For simplicity, I've ignored `RxJava` in this project. I will create another repository of `MVVM` with `Rx`.
