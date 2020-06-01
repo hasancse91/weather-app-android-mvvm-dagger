@@ -7,7 +7,7 @@ MVVM Architecture is one of the most popular and latest architecture to develop 
 <img src="https://github.com/hasancse91/weather-app-android-mvvm/blob/master/data/screenshot_1.png" width="250" height="444" />
 
 ### Prerequisites
-Basic `Kotlin` and knowledge of `HTTP` request by `Retrofit` library are required for this project. If you already know `MVP Architecture` then this project will be very easy to understand. You can check my `MVP Architecture` Weather App [repository from here](https://github.com/hasancse91/weather-app-android-mvp-architecture). It will be helpful if you cover the MVP project then compare between MVP and MVVM.
+Basic `Kotlin` and knowledge of `HTTP` request by `Retrofit` library are required for this project. If you already know `MVP Architecture` then this project will be very easy to understand. You can check my `MVP Architecture` Weather App [repository from here](https://github.com/hasancse91/weather-app-android-mvp-architecture). It will be helpful if you cover the MVP project then compare between MVP and MVVM. There is my [another repository](https://github.com/hasancse91/weather-app-android-mvvm) where I've implemented same weather App in MVVM architecture without Dagger.
 
 ### Project Description
 We will develop a weather forecast Android Application with MVP architecture. The UI will be as like as above screenshot. There is a `Spinner` with some `City` name. After selection a city user need to hit the `View Weather` button. Then App will send request to Open Weather web API and show the weather information in the UI.
