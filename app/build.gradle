@@ -1,12 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
-        applicationId "com.hellohasan.weatherappmvvm"
+        applicationId "com.hellohasan.weatherappmvvmdagger"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
@@ -44,6 +45,13 @@ dependencies {
 
     // material design
     implementation 'com.google.android.material:material:1.2.0-alpha06'
+
+    // dagger2
+    api 'com.google.dagger:dagger:2.27'
+    api 'com.google.dagger:dagger-android:2.27'
+    api 'com.google.dagger:dagger-android-support:2.27' // if you use the support libraries
+    kapt 'com.google.dagger:dagger-android-processor:2.27'
+    kapt 'com.google.dagger:dagger-compiler:2.27'
 
     // network call related libraries
     implementation 'com.squareup.retrofit2:retrofit:2.7.2' // REST API calling library
