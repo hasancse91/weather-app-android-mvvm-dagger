@@ -4,6 +4,8 @@ MVVM Architecture is one of the most popular and latest architecture to develop 
 
 > If you are not familiar with `MVVM` architecture, then I recommend you to check [this MVVM respository](https://github.com/hasancse91/weather-app-android-mvvm) with same Weather App project. In that project, you'll find simple `MVVM` implementation without `Dagger`. After completion of that project, you can continue this repository.
 
+Same weather app project is available for Flutter in [this repository](https://github.com/hasancse91/weather_app_flutter).
+
 <img src="https://github.com/hasancse91/weather-app-android-mvvm/blob/master/data/screenshot_1.png" width="250" height="444" />
 
 ### Prerequisites
