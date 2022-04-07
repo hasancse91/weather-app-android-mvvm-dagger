@@ -8,7 +8,7 @@ import javax.inject.Inject
 class WeatherInfoViewModelFactory @Inject constructor(private val arg: WeatherInfoShowModel) :
     ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(WeatherInfoShowModel::class.java)
             .newInstance(arg)
     }
