@@ -32,36 +32,41 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+
+    //Test
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 
     // material design
-    implementation 'com.google.android.material:material:1.2.0-alpha06'
+    implementation 'com.google.android.material:material:1.6.0-beta01'
 
     // dagger2
-    api 'com.google.dagger:dagger:2.27'
-    api 'com.google.dagger:dagger-android:2.27'
-    api 'com.google.dagger:dagger-android-support:2.27' // if you use the support libraries
-    kapt 'com.google.dagger:dagger-android-processor:2.27'
-    kapt 'com.google.dagger:dagger-compiler:2.27'
+    def daggerVersion = "2.38.1"
+    api "com.google.dagger:dagger:$daggerVersion"
+    api "com.google.dagger:dagger-android:$daggerVersion"
+    api "com.google.dagger:dagger-android-support:$daggerVersion" // if you use the support libraries
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
     // network call related libraries
-    implementation 'com.squareup.retrofit2:retrofit:2.7.2' // REST API calling library
-    implementation 'com.squareup.retrofit2:converter-gson:2.7.2' // JSON parsing library
+    def retrofitVersion = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion" // REST API calling library
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion" // JSON parsing library
     implementation('com.github.ihsanbal:LoggingInterceptor:3.0.0') { // HTTP pretty log printing library
         exclude group: 'org.json', module: 'json'
     }
 
     // glide image loading library
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    def glideVersion = "4.12.0"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 }
 
 def getBaseUrl() {
@@ -69,7 +74,7 @@ def getBaseUrl() {
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
     String baseUrl = properties.getProperty("base_url")
-    if(baseUrl==null)
+    if (baseUrl == null)
         throw new GradleException("Add 'base_url' field at local.properties file. For more details: https://github.com/hasancse91/weather-app-android-mvvm-dagger/blob/master/README.md")
 
     return baseUrl
@@ -80,7 +85,7 @@ def getAppId() {
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
     String appId = properties.getProperty("app_id")
-    if(appId==null)
+    if (appId == null)
         throw new GradleException("Add 'app_id' field at local.properties file. For more details: https://github.com/hasancse91/weather-app-android-mvvm-dagger/blob/master/README.md")
 
     return appId
