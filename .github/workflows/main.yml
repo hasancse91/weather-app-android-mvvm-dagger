@@ -31,3 +31,27 @@ jobs:
         with:
           name: lint.html
           path: app/build/reports/lint-results-debug.html
+
+  unit-test:
+    needs: [ lint ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Fetch Secrets and Add in Environment
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          APP_ID: ${{ secrets.APP_ID }}
+        run: echo "Base Url = $BASE_URL App Id = $APP_ID"
+
+      - name: Add local.properties file
+        run: echo -e "base_url= $BASE_URL \n app_id= $APP_ID" > ./local.properties
+      - name: Generate test report
+        run: ./gradlew test
+
+      - name: Upload unit test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: unit-test-report
+          path: app/build/reports/tests/testDebugUnitTest
