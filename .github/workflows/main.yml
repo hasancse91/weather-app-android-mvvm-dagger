@@ -55,3 +55,31 @@ jobs:
         with:
           name: unit-test-report
           path: app/build/reports/tests/testDebugUnitTest
+
+  instrumentation-test:
+    needs: [ unit-test ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Fetch Secrets and Add in Environment
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          APP_ID: ${{ secrets.APP_ID }}
+        run: echo "Base Url = $BASE_URL App Id = $APP_ID"
+
+      - name: Add local.properties file
+        run: echo -e "base_url= $BASE_URL \n app_id= $APP_ID" > ./local.properties
+
+      - name: Generate AndroidTest Report
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedCheck
+
+      - name: Upload AndroidTest report
+        uses: actions/upload-artifact@v2
+        with:
+          name: instrumentation-test-report
+          path: app/build/reports/androidTests/connected/
