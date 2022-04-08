@@ -83,3 +83,29 @@ jobs:
         with:
           name: instrumentation-test-report
           path: app/build/reports/androidTests/connected/
+
+  static-code-analysis:
+    needs: [ instrumentation-test ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Fetch Secrets and Add in Environment
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          APP_ID: ${{ secrets.APP_ID }}
+        run: echo "Base Url = $BASE_URL App Id = $APP_ID"
+
+      - name: Add local.properties file
+        run: echo -e "base_url= $BASE_URL \n app_id= $APP_ID" > ./local.properties
+
+      - name: set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: SonarCloud Scan
+        run: ./gradlew app:sonarqube -D sonar.login=${{ secrets.SONAR_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
