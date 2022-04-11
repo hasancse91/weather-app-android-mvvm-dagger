@@ -8,17 +8,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.hellohasan.weatherappmvvmdagger.R
+import com.hellohasan.weatherappmvvmdagger.databinding.ActivityMainBinding
 import com.hellohasan.weatherappmvvmdagger.features.weather_info_show.model.data_class.City
 import com.hellohasan.weatherappmvvmdagger.features.weather_info_show.model.data_class.WeatherData
 import com.hellohasan.weatherappmvvmdagger.features.weather_info_show.viewmodel.WeatherInfoViewModel
 import com.hellohasan.weatherappmvvmdagger.features.weather_info_show.viewmodel.WeatherInfoViewModelFactory
 import com.hellohasan.weatherappmvvmdagger.utils.convertToListOfCityName
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_input_part.*
-import kotlinx.android.synthetic.main.layout_sunrise_sunset.*
-import kotlinx.android.synthetic.main.layout_weather_additional_info.*
-import kotlinx.android.synthetic.main.layout_weather_basic_info.*
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -30,9 +26,12 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private var cityList: MutableList<City> = mutableListOf()
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // initialize ViewModel
         viewModel = ViewModelProvider(this, factory).get(WeatherInfoViewModel::class.java)
@@ -52,9 +51,11 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private fun setViewClickListener() {
         // View Weather button click listener
-        btn_view_weather.setOnClickListener {
-            val selectedCityId = cityList[spinner.selectedItemPosition].id
-            viewModel.getWeatherInfo(selectedCityId) // fetch weather info
+        binding.layoutInput.apply {
+            btnViewWeather.setOnClickListener {
+                val selectedCityId = cityList[spinner.selectedItemPosition].id
+                viewModel.getWeatherInfo(selectedCityId) // fetch weather info
+            }
         }
     }
 
@@ -72,7 +73,7 @@ class MainActivity : DaggerAppCompatActivity() {
          * implementation of `Observer` interface. Rest of the `observe()` method, I've used lambda
          * to short the code.
          */
-        viewModel.cityListLiveData.observe(this, object : Observer<MutableList<City>>{
+        viewModel.cityListLiveData.observe(this, object : Observer<MutableList<City>> {
             override fun onChanged(cities: MutableList<City>) {
                 setCityListSpinner(cities)
             }
@@ -99,9 +100,9 @@ class MainActivity : DaggerAppCompatActivity() {
          */
         viewModel.progressBarLiveData.observe(this, Observer { isShowLoader ->
             if (isShowLoader)
-                progressBar.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.VISIBLE
             else
-                progressBar.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
         })
 
         /**
@@ -126,9 +127,11 @@ class MainActivity : DaggerAppCompatActivity() {
          * Here I've used lambda expression to implement Observer interface in second parameter.
          */
         viewModel.weatherInfoFailureLiveData.observe(this, Observer { errorMessage ->
-            output_group.visibility = View.GONE
-            tv_error_message.visibility = View.VISIBLE
-            tv_error_message.text = errorMessage
+            binding.apply {
+                outputGroup.visibility = View.GONE
+                tvErrorMessage.visibility = View.VISIBLE
+                tvErrorMessage.text = errorMessage
+            }
         })
     }
 
@@ -141,24 +144,33 @@ class MainActivity : DaggerAppCompatActivity() {
             this.cityList.convertToListOfCityName()
         )
 
-        spinner.adapter = arrayAdapter
+        binding.layoutInput.spinner.adapter = arrayAdapter
     }
 
     private fun setWeatherInfo(weatherData: WeatherData) {
-        output_group.visibility = View.VISIBLE
-        tv_error_message.visibility = View.GONE
+        binding.apply {
+            outputGroup.visibility = View.VISIBLE
+            tvErrorMessage.visibility = View.GONE
 
-        tv_date_time?.text = weatherData.dateTime
-        tv_temperature?.text = weatherData.temperature
-        tv_city_country?.text = weatherData.cityAndCountry
-        Glide.with(this).load(weatherData.weatherConditionIconUrl).into(iv_weather_condition)
-        tv_weather_condition?.text = weatherData.weatherConditionIconDescription
+            layoutWeatherBasic.apply {
+                tvDateTime.text = weatherData.dateTime
+                tvTemperature.text = weatherData.temperature
+                tvCityCountry.text = weatherData.cityAndCountry
+                Glide.with(this@MainActivity).load(weatherData.weatherConditionIconUrl).into(ivWeatherCondition)
+                tvWeatherCondition.text = weatherData.weatherConditionIconDescription
+            }
 
-        tv_humidity_value?.text = weatherData.humidity
-        tv_pressure_value?.text = weatherData.pressure
-        tv_visibility_value?.text = weatherData.visibility
+            layoutWeatherAdditional.apply {
+                tvHumidityValue.text = weatherData.humidity
+                tvPressureValue.text = weatherData.pressure
+                tvVisibilityValue.text = weatherData.visibility
+            }
 
-        tv_sunrise_time?.text = weatherData.sunrise
-        tv_sunset_time?.text = weatherData.sunset
+            layoutSunsetSunrise.apply {
+                tvSunriseTime.text = weatherData.sunrise
+                tvSunsetTime.text = weatherData.sunset
+            }
+
+        }
     }
 }

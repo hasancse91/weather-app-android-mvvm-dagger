@@ -16,7 +16,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name="com.hellohasan.weatherappmvvmdagger.features.weather_info_show.view.MainActivity">
+        <activity android:name="com.hellohasan.weatherappmvvmdagger.features.weather_info_show.view.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
