@@ -48,7 +48,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.0-beta01'
 
     // dagger2
-    def daggerVersion = "2.38.1"
+    def daggerVersion = "2.41"
     api "com.google.dagger:dagger:$daggerVersion"
     api "com.google.dagger:dagger-android:$daggerVersion"
     api "com.google.dagger:dagger-android-support:$daggerVersion" // if you use the support libraries
