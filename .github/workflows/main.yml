@@ -139,22 +139,3 @@ jobs:
         with:
           name: app-debug.apk
           path: app/build/outputs/apk/debug/app-debug.apk
-
-  deploy:
-    needs: [ build-apk ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download latest artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: app-debug.apk
-
-      - name: Upload to app center
-        uses: wzieba/AppCenter-Github-Action@v1
-        with:
-          appName: BS1002/weather-app-android-mvvm-dagger
-          token: ${{ secrets.APP_CENTER_TOKEN }}
-          group: AlphaTesters
-          file: app-debug.apk
-          notifyTesters: true
-          debug: true
